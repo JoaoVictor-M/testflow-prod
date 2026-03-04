@@ -2,83 +2,54 @@
 
 O **TestFlow** é uma plataforma completa e containerizada para gerenciamento de testes de software, controle de evidências e métricas de qualidade.
 
-Este repositório contém os arquivos de instalação para implantar a versão de produção do TestFlow usando Docker.
-
 ---
 
-## 🛠️ Pré-requisitos
+## 📦 Instalação (Servidores Linux/Windows)
 
-Para executar o TestFlow, você precisa ter instalado no seu servidor:
+Para instalar o TestFlow em um servidor de produção **sem precisar do código-fonte**, siga os passos abaixo. O sistema roda inteiramente sobre Docker.
 
-*   **[Docker Engine](https://docs.docker.com/engine/install/)** (para Linux) ou **[Docker Desktop](https://docs.docker.com/desktop/)** (para Windows/Mac).
-*   **[Docker Compose](https://docs.docker.com/compose/install/)** (Geralmente já incluído nas instalações recentes do Docker).
+### Pré-requisitos
+*   [Docker](https://www.docker.com/) instalado.
+*   [Docker Compose](https://docs.docker.com/compose/install/) instalado.
 
----
+### Passo a Passo
 
-## 🚀 Como Instalar
-
-Siga os passos abaixo de acordo com o seu sistema operacional.
-
-### 🐧 Instalação no Linux (Ubuntu/Debian/CentOS)
-
-1.  **Clone este repositório** ou baixe apenas os arquivos `docker-compose.yml` e `mongo-init.js` para uma pasta de sua preferência (ex: `/opt/testflow`).
-
+1.  **Acesse a pasta `install`** deste repositório (está tudo pronto lá).
+2.  **Copie os arquivos para seu servidor**:
+    *   Copie a pasta `install` inteira ou apenas os arquivos `docker-compose.yml` e `mongo-init.js`.
+3.  **Execute o sistema**:
+    Abra o terminal na pasta onde salvou os arquivos e rode:
     ```bash
-    git clone https://github.com/JoaoVictor-M/testflow-prod.git testflow
-    cd testflow
-    ```
-
-    *Caso não queira usar git, apenas crie uma pasta e coloque os dois arquivos dentro dela.*
-
-2.  **Verifique as permissões** (Opcional, mas recomendado para o script de banco):
-    Certifique-se de que o arquivo `mongo-init.js` tem permissão de leitura.
-
-3.  **Inicie a aplicação**:
-    Dentro da pasta onde estão os arquivos, execute:
-
-    ```bash
-    sudo docker compose up -d
-    ```
-
-    Isso fará o download das imagens oficiais mais recentes e iniciará os containers em segundo plano.
-
-### 🪟 Instalação no Windows
-
-1.  Certifique-se de que o **Docker Desktop** está rodando.
-
-2.  **Baixe os arquivos**:
-    *   Clone o repositório ou baixe o ZIP e extraia em uma pasta (ex: `C:\TestFlow`).
-
-3.  **Abra o Terminal (PowerShell ou CMD)**:
-    Navegue até a pasta onde salvou os arquivos.
-
-    ```powershell
-    cd C:\TestFlow
-    ```
-
-4.  **Inicie a aplicação**:
-    Execute o comando:
-
-    ```powershell
     docker compose up -d
     ```
 
----
+Isso irá baixar as imagens oficiais do sistema (Frontend e Backend) e iniciar o banco de dados MongoDB automaticamente.
 
-## 📦 O que está sendo instalado?
-
-Ao rodar o comando acima, o Docker criará os seguintes serviços:
-
-*   **testflow-frontend**: Interface web da aplicação (Porta **80**).
-*   **testflow-backend**: API do sistema (Porta **3000** - uso interno).
-*   **mongodb-service**: Banco de dados MongoDB (Porta **27017**).
-
-Todos os dados do banco e evidências de testes são persistidos em volumes locais do Docker, garantindo que você não perca dados ao reiniciar os containers.
+### Acesso
+Após iniciar, o sistema estará disponível em:
+*   **URL**: `http://localhost` (ou o IP do seu servidor)
+*   **Login Padrão**: (Consulte o administrador para credenciais iniciais ou script de seed)
 
 ---
 
-## 🌐 Acessando o Sistema
+## 🛠️ Desenvolvimento (Para mantenedores)
 
-Após a instalação, abra seu navegador e acesse:
+Se você tem acesso ao código-fonte e deseja contribuir:
 
-*   **URL**: `http://localhost` (ou o IP do seu servidor, ex: `http://192.168.1.50`)
+1.  Clone o repositório:
+    ```bash
+    git clone git@github.com:JoaoVictor-M/testflow.git
+    ```
+2.  Inicie em modo de desenvolvimento (build local):
+    ```bash
+    docker compose up -d --build
+    ```
+
+---
+
+## 🚀 Funcionalidades da Versão 1.0.0
+*   **Gestão de Projetos e Demandas**: Controle total do ciclo de vida.
+*   **Evidências**: Upload múltiplo e galeria integrada.
+*   **Deep Clone**: Duplicação inteligente de projetos para regressão.
+*   **Segurança**: Autenticação JWT e RBAC (Admin/QA).
+*   **Infraestrutura**: Nginx otimizado e MongoDB persistente.
