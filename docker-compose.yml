@@ -3,41 +3,43 @@ services:
     image: mongo:latest
     restart: always
     volumes:
-    - mongo-data:/data/db
-    - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - mongo-data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
   backend-service:
     image: ghcr.io/joaovictor-m/testflow-backend:latest
     restart: always
     environment:
-    - FRONTEND_URL=${FRONTEND_URL:-https://localhost/testflow}
+      - FRONTEND_URL=${FRONTEND_URL:-https://localhost/testflow}
     volumes:
-    - ./evidencias_testes:/evidencias_testes
+      - ./evidencias_testes:/evidencias_testes
     depends_on:
-    - mongodb-service
+      - mongodb-service
   frontend-service:
     image: ghcr.io/joaovictor-m/testflow-frontend:latest
     restart: always
     depends_on:
-    - backend-service
+      - backend-service
   nginx-service:
     image: ghcr.io/joaovictor-m/testflow-nginx:latest
     restart: always
     ports:
-    - 80:80
-    - 443:443
+      - '80:80'
+      - '443:443'
     depends_on:
-    - frontend-service
-    - backend-service
+      - frontend-service
+      - backend-service
     volumes:
-    - ./certificados:/etc/nginx/ssl:ro
+      - ./certificados:/etc/nginx/ssl:ro
   watchtower-service:
     image: containrrr/watchtower
     restart: always
     volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
-    - WATCHTOWER_HTTP_API=true
-    - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_TOKEN}
-    - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_HTTP_API=true
+      - >-
+        WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_TOKEN}
+      - WATCHTOWER_CLEANUP=true
 volumes:
   mongo-data: null
+
