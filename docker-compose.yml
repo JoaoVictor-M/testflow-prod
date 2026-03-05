@@ -38,7 +38,7 @@ services:
     environment:
       - WATCHTOWER_HTTP_API=true
       - >-
-      - WATCHTOWER_HTTP_API_TOKEN=90d12534-cb0a-450d-b0fa-4a54c0c4cf4f
+        WATCHTOWER_HTTP_API_TOKEN=2606a969-3f62-43a2-a9d0-e205c751823c
       - WATCHTOWER_CLEANUP=true
 volumes:
   mongo-data: null
