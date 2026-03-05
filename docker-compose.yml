@@ -2,9 +2,11 @@ services:
   mongodb-service:
     image: mongo:latest
     restart: always
+
     volumes:
       - mongo-data:/data/db
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
   backend-service:
     image: ghcr.io/joaovictor-m/testflow-backend:latest
     restart: always
@@ -14,22 +16,25 @@ services:
       - ./evidencias_testes:/evidencias_testes
     depends_on:
       - mongodb-service
+
   frontend-service:
     image: ghcr.io/joaovictor-m/testflow-frontend:latest
     restart: always
     depends_on:
       - backend-service
+
   nginx-service:
     image: ghcr.io/joaovictor-m/testflow-nginx:latest
     restart: always
     ports:
-      - '80:80'
-      - '443:443'
+      - "80:80"
+      - "443:443"
     depends_on:
       - frontend-service
       - backend-service
     volumes:
       - ./certificados:/etc/nginx/ssl:ro
+
   watchtower-service:
     image: containrrr/watchtower
     restart: always
@@ -37,9 +42,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - WATCHTOWER_HTTP_API=true
-      - >-
-        WATCHTOWER_HTTP_API_TOKEN=2606a969-3f62-43a2-a9d0-e205c751823c
+      - WATCHTOWER_HTTP_API_TOKEN=37beae08-08c0-4ec4-b1ce-18ae0906f973
       - WATCHTOWER_CLEANUP=true
-volumes:
-  mongo-data: null
 
+volumes:
+  mongo-data:
