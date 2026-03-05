@@ -37,8 +37,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - WATCHTOWER_HTTP_API=true
-      - >-
-        WATCHTOWER_HTTP_API_TOKEN=bcd13cce-a465-441c-95cc-ab3d1560a982
+      - WATCHTOWER_HTTP_API_TOKEN=undefined
       - WATCHTOWER_CLEANUP=true
 volumes:
   mongo-data: null
