@@ -4,6 +4,7 @@ services:
     restart: always
 
     ports:
+      - "27017:27017"
 
     volumes:
       - mongo-data:/data/db
@@ -48,7 +49,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - WATCHTOWER_HTTP_API=true
-      - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_TOKEN:-uma-senha-padrao-super-segura-e-exclusiva-para-webhook}
+      - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_TOKEN}
       - WATCHTOWER_CLEANUP=true
 
 volumes:
