@@ -35,15 +35,6 @@ services:
     volumes:
       - ./certificados:/etc/nginx/ssl:ro
 
-  watchtower-service:
-    image: containrrr/watchtower
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - WATCHTOWER_HTTP_API=true
-      - WATCHTOWER_HTTP_API_TOKEN=37beae08-08c0-4ec4-b1ce-18ae0906f973
-      - WATCHTOWER_CLEANUP=true
 
 volumes:
   mongo-data:
