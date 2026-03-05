@@ -4,7 +4,6 @@ services:
     restart: always
 
     ports:
-      - "27017:27017"
 
     volumes:
       - mongo-data:/data/db
@@ -13,8 +12,6 @@ services:
   backend-service:
     image: ghcr.io/joaovictor-m/testflow-backend:latest
     restart: always
-    expose:
-      - "3000"
     environment:
       - FRONTEND_URL=${FRONTEND_URL:-https://localhost/testflow}
     volumes:
@@ -25,8 +22,6 @@ services:
   frontend-service:
     image: ghcr.io/joaovictor-m/testflow-frontend:latest
     restart: always
-    expose:
-      - "80"
     depends_on:
       - backend-service
 
